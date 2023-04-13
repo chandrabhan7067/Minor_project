@@ -3,9 +3,7 @@ from gtts import gTTS
 import gradio as gr
 from translate import Translator
 
-# os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
-
-# auth_token = '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'   # For accessing HuggingFace Facebook Model. 
+#auth_token = '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'   # For accessing HuggingFace Facebook Model. 
 
 class Languages:
     """ Languages currently supported by the application. """
@@ -34,22 +32,6 @@ class TLD:
     'French (France)':'fr','Portuguese (Brazil)':'com.br','Portuguese (Portugal)':'pt',
     'Spanish (Mexico)':'com.mx','Spanish (Spain)':'es','Spanish (United States)':'us'}
 
-class TTSLayer():
-    """ Layer on top of gTTS - providing text to speech for """
-
-    def __init__(self, text, tld, lang) -> None:
-        """ [Constructor takes in text, the top-level domain and the language in which the text is : ] """
-        self.text = text
-        self.tld = tld    
-        self.lang = lang
-    
-    def tts(self):
-        """ [Converts the text to speech.] """
-        tts = gTTS(text=self.text,tld= TLD.tld[self.tld], lang=Languages.lang[self.lang])
-        tts.save('tts.mp3')
-        with open('tts.mp3') as fp:
-            return fp.name
-
 langs = Languages()
 top_level_domain = TLD()
 
@@ -62,10 +44,13 @@ def T2TConversion(text, dest):
 
 def convert_text(Text,Language, Accent):
     """ [(Utility Function) : Performs Text-To-Speech provided language and accent.] """
-    tts = TTSLayer(Text,Accent, Language)
-    return tts.tts()
-
-
+    # tts = TTSLayer(Text,Accent, Language)
+    # return tts.tts()
+    
+    tts = gTTS(text=Text,tld= top_level_domain.tld[Accent], lang=langs.lang[Language])
+    return tts.save('tts.mp3')
+  
+    
 class GRadioInterface:
     """ [Class for managing UI for the application.] """
     def __init__(self, function) -> None:
@@ -105,5 +90,6 @@ class GRadioInterface:
         demo = gr.TabbedInterface([it_1,it_2],['Speech Synthesis', 'Sentence Translation'])
         demo.launch()
 
+#Through this we are making the object of GRadGRadioInterface class so after calling this class our interface will automatically build
 demo_app = GRadioInterface(function=convert_text)
 demo_app.start()
