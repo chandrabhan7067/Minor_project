@@ -33,17 +33,14 @@ The project is divided into several small apps-
 
 
 Some important files/folders in each of the apps mentioned above -
-- models.py - describe each object's class.
-- admin.py - registers and customises the admin view for the models
-- apps.py - registers apps with Django
-- forms.py - contains the form to either create a new object of the given - model/class or edit the already existing object.
-- urls.py - contains URL patterns that match a URL with a view for a page
-- views.py - contains functions that take web requests and return web - responses
-- templates - has the HTML files for the pages
+- app.py - describe each object's class.
+- index.html - contains all the web interface and different links
+- style.css - registers apps with Django
+- main.js - contains the form to either create a new object of the given - model/class or edit the already existing object.
 
 Two more folders are present-
-- Templates - it has the HTML files for the pages
-- Static - it stores static files such as CSS and javascript files.
+- final3 - it has the HTML files for the pages
+- Assets - it stores static files such as CSS and javascript files.
 
 
 
